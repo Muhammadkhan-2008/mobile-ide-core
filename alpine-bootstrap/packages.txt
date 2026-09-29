@@ -1,0 +1,20 @@
+# Alpine packages bundled into the packaged rootfs.
+# Kept minimal but sufficient for on-device compilation and git workflows.
+alpine-base
+bash
+coreutils
+git
+openssh-client
+curl
+wget
+gcc
+g++
+make
+cmake
+musl-dev
+python3
+py3-pip
+nodejs
+npm
+vim
+nano

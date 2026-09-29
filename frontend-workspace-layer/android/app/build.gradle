@@ -1,0 +1,61 @@
+apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
+apply plugin: "org.jetbrains.kotlin.android"
+
+/**
+ * React Native Gradle plugin configuration. Autolinking is driven by the
+ * settings.gradle plugin, so this block is intentionally minimal.
+ */
+react {
+    // Paths are resolved relative to the app module by default.
+}
+
+def enableProguardInReleaseBuilds = false
+
+android {
+    ndkVersion rootProject.ext.ndkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
+
+    namespace "com.mobileide.core"
+    defaultConfig {
+        applicationId "com.mobileide.core"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug {
+            // Fall back to the auto-generated debug keystore when debug.keystore
+            // is not present (e.g. a fresh CI checkout).
+            signingConfig signingConfigs.debug
+        }
+        release {
+            // Sign release with the debug key so CI artifacts are installable.
+            signingConfig signingConfigs.debug
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+}
+
+dependencies {
+    // The version of react-android is resolved from the react-native package.
+    implementation("com.facebook.react:react-android")
+    implementation("com.facebook.react:hermes-android")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
+
+    // react-native-webview, gesture-handler, safe-area-context and async-storage
+    // are autolinked by the com.facebook.react plugin — no manual project refs.
+}

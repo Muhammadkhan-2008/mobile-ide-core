@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+frontend-workspace-layer/node_modules/
+
+# Android build outputs
+frontend-workspace-layer/android/app/build/
+frontend-workspace-layer/android/build/
+frontend-workspace-layer/android/.gradle/
+frontend-workspace-layer/android/app/.cxx/
+frontend-workspace-layer/android/.idea/
+*.apk
+*.aab
+
+# Generated signing keys (created in CI)
+frontend-workspace-layer/android/app/debug.keystore
+*.keystore
+!debug.keystore.example
+
+# Metro / bundler
+frontend-workspace-layer/.metro-health-check*
+frontend-workspace-layer/.bundle/
+
+# OS / editor
+.DS_Store
+*.log
+.idea/
+.vscode/
